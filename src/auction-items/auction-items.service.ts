@@ -1,16 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAuctionItemDto } from './dto/create-auction-item.dto'
+import { CreateAuctionItemDto } from './dto/create-auction-item.dto';
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import { AuctionItem } from './schema/auctionItem.schema';
 
 @Injectable()
 export class AuctionItemsService {
-  create(createAuctionItemDto: CreateAuctionItemDto) {
+  constructor(
+    @InjectModel(AuctionItem.name) private auctionItemModel: Model<AuctionItem>,
+  ) {}
+
+  async create(createAuctionItemDto: CreateAuctionItemDto): Promise<any> {
     console.log(createAuctionItemDto);
-    return {
-      auctionItemId: '1234',
+    const createdAuctionItem =
+      await this.auctionItemModel.create(createAuctionItemDto);
+    const ret = {
+      auctionItemId: createdAuctionItem._id,
     };
+
+    return Promise.resolve(ret);
   }
 
-  findAll() {
+  async findAll(): Promise<any[]> {
     const res = [
       {
         auctionItemId: '1234',
@@ -21,21 +32,14 @@ export class AuctionItemsService {
           description: 'item description',
         },
       },
-      {
-        auctionItemId: '1235',
-        currentBid: 2950.0,
-        bidderName: 'ABC Dealership',
-        reservePrice: 2499.0,
-        item: {
-          itemId: 'efgh',
-          description: 'another item description',
-        },
-      },
     ];
-    return res;
+
+    const auctionItems = await this.auctionItemModel.find().exec();
+    return auctionItems;
   }
 
-  findOne(id: number) {
+  async findOne(id: string): Promise<any> {
+    /*
     return {
       auctionItemId: id,
       currentBid: 0.0,
@@ -45,5 +49,8 @@ export class AuctionItemsService {
         description: 'item description',
       },
     };
+    */
+    const auctionItem = await this.auctionItemModel.findOne({ _id: id }).exec();
+    return auctionItem;
   }
 }

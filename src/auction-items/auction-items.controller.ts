@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  HttpException,
-  HttpStatus,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { AuctionItemsService } from './auction-items.service';
 import { CreateAuctionItemDto } from './dto/create-auction-item.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -23,8 +15,10 @@ export class AuctionItemsController {
     description: 'Auction item created!!',
     type: CreateAuctionItemDto,
   })
-  create(@Body() createAuctionItemDto: CreateAuctionItemDto) {
-    return this.auctionItemsService.create(createAuctionItemDto);
+  async create(@Body() createAuctionItemDto: CreateAuctionItemDto) {
+    const res = await this.auctionItemsService.create(createAuctionItemDto);
+
+    return res;
   }
 
   @Get()
@@ -34,8 +28,9 @@ export class AuctionItemsController {
     description: 'list of auction items!',
     type: Array,
   })
-  findAll() {
-    return this.auctionItemsService.findAll();
+  async findAll() {
+    const res = await this.auctionItemsService.findAll();
+    return res;
   }
 
   @Get(':auctionItemId')
@@ -45,14 +40,11 @@ export class AuctionItemsController {
     description: 'details of auction item!',
     type: Object,
   })
-  findOne(
+  async findOne(
     @Param('auctionItemId')
-    auctionItemId: number
+    auctionItemId: string,
   ) {
-    console.log(auctionItemId);
-    if( isNaN ) {
-      throw new HttpException( 'Bad auctionItemId', HttpStatus.BAD_REQUEST)
-    }
-    return this.auctionItemsService.findOne(+auctionItemId);
+    const res = await this.auctionItemsService.findOne(auctionItemId);
+    return res;
   }
 }

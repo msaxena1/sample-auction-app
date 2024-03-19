@@ -1,22 +1,19 @@
 import {
-    IsDecimal,
-    MinLength,
-    IsNotEmpty,
-    IsNumber,
-    IsString,
-  } from 'class-validator';
+  IsDecimal,
+  MinLength,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 
 export class CreateBidDto {
+  @IsNumber()
+  auctionItemId: number;
 
-    @IsNumber()
+  @IsDecimal()
+  maxAutoBidAmount: number;
 
-    auctionItemId: number;
-    
-    @IsDecimal()
-
-    maxAutoBidAmount: number;
-
-    @IsString()
-    @MinLength( 1 )
-    bidderName: string;
+  @IsString()
+  @MinLength(1)
+  bidderName: string;
 }

@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { BidsService } from './bids.service';
 import { CreateBidDto } from './dto/create-bid.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
@@ -18,5 +26,4 @@ export class BidsController {
   create(@Body() createBidDto: CreateBidDto) {
     return this.bidsService.create(createBidDto);
   }
-
 }
