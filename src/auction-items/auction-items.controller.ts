@@ -4,6 +4,8 @@ import {
   Post,
   Body,
   Param,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuctionItemsService } from './auction-items.service';
 import { CreateAuctionItemDto } from './dto/create-auction-item.dto';
@@ -48,6 +50,9 @@ export class AuctionItemsController {
     auctionItemId: number
   ) {
     console.log(auctionItemId);
+    if( isNaN ) {
+      throw new HttpException( 'Bad auctionItemId', HttpStatus.BAD_REQUEST)
+    }
     return this.auctionItemsService.findOne(+auctionItemId);
   }
 }

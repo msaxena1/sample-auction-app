@@ -37,7 +37,7 @@ export class AuctionItemsService {
 
   findOne(id: number) {
     return {
-      auctionItemId: '1234',
+      auctionItemId: id,
       currentBid: 0.0,
       reservePrice: 10450.0,
       item: {
