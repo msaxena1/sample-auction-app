@@ -1,11 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+} from '@nestjs/common';
 import { AuctionItemsService } from './auction-items.service';
 import { CreateAuctionItemDto } from './dto/create-auction-item.dto';
-import {
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @Controller('auctionItems')
 @ApiTags('Auction Items')
@@ -15,9 +17,9 @@ export class AuctionItemsController {
   @Post()
   @ApiOperation({ summary: 'Adds an entry for auction' })
   @ApiResponse({
-    status: 200,
-    description: 'sample-auction-app is healthy!',
-    type: String,
+    status: 201,
+    description: 'Auction item created!!',
+    type: CreateAuctionItemDto,
   })
   create(@Body() createAuctionItemDto: CreateAuctionItemDto) {
     return this.auctionItemsService.create(createAuctionItemDto);
@@ -27,22 +29,25 @@ export class AuctionItemsController {
   @ApiOperation({ summary: 'returns all auctionItems' })
   @ApiResponse({
     status: 200,
-    description: 'sample-auction-app is healthy!',
-    type: String,
+    description: 'list of auction items!',
+    type: Array,
   })
   findAll() {
     return this.auctionItemsService.findAll();
   }
 
-  @Get(':id')
+  @Get(':auctionItemId')
   @ApiOperation({ summary: 'returns a specific auctionItem' })
   @ApiResponse({
     status: 200,
-    description: 'sample-auction-app is healthy!',
-    type: String,
+    description: 'details of auction item!',
+    type: Object,
   })
-  findOne(@Param('id') id: string) {
-    return this.auctionItemsService.findOne(+id);
+  findOne(
+    @Param('auctionItemId')
+    auctionItemId: number
+  ) {
+    console.log(auctionItemId);
+    return this.auctionItemsService.findOne(+auctionItemId);
   }
-
 }

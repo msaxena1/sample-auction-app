@@ -4,6 +4,10 @@ import { ConfigModule } from './config/config.module';
 import { AuctionItemsModule } from './auction-items/auction-items.module';
 
 @Module({
-  imports: [ConfigModule.register({ folder: './config' }), HealthcheckModule, AuctionItemsModule],
+  imports: [
+    ConfigModule.register({ folder: './config' }),
+    HealthcheckModule,
+    AuctionItemsModule,
+  ],
 })
 export class AppModule {}
