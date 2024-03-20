@@ -10,8 +10,8 @@ describe('AuctionItemsController', () => {
     reservePrice: 123,
     item: {
       itemId: 'sample-item',
-      description: 'sample-description'
-    }
+      description: 'sample-description',
+    },
   };
   const mockAuctionItem = {
     auctionItemId: '1234',
@@ -19,25 +19,27 @@ describe('AuctionItemsController', () => {
     currentBid: 0,
     item: {
       itemId: 'sample-item',
-      description: 'sample-description'
-    }
+      description: 'sample-description',
+    },
   };
 
   const mockAuctionItemRes = {
-    auctionItemId: '1234'
+    auctionItemId: '1234',
   };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [AuctionItemsController],
-      providers: [{
-        provide: AuctionItemsService,
-        useValue: {
-          create: jest.fn().mockResolvedValue(mockAuctionItemRes),
-          findAll: jest.fn().mockResolvedValue([mockAuctionItem]),
-          findOne: jest.fn().mockResolvedValue(mockAuctionItem),
-        }
-      }],
+      providers: [
+        {
+          provide: AuctionItemsService,
+          useValue: {
+            create: jest.fn().mockResolvedValue(mockAuctionItemRes),
+            findAll: jest.fn().mockResolvedValue([mockAuctionItem]),
+            findOne: jest.fn().mockResolvedValue(mockAuctionItem),
+          },
+        },
+      ],
     }).compile();
 
     controller = module.get<AuctionItemsController>(AuctionItemsController);
@@ -48,7 +50,7 @@ describe('AuctionItemsController', () => {
     expect(controller).toBeDefined();
   });
 
-    it('should create a new auction item', async () => {
+  it('should create a new auction item', async () => {
     const createSpy = jest
       .spyOn(service, 'create')
       .mockResolvedValueOnce(mockAuctionItemRes);
