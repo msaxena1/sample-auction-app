@@ -4,6 +4,8 @@ import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { AuctionItem } from './schema/auctionItem.schema';
 import {
+  BID_INCREMENT_NOT_MET_EXCEPTION,
+  ITEM_NOT_FOUND_EXCEPTION,
   RESERVE_NOT_MET_EXCEPTION,
   OUTBID_EXCEPTION,
 } from './constants';
@@ -66,6 +68,14 @@ export class AuctionItemsService {
       if (newDetails.currentBid < newDetails.reservePrice)
         throw RESERVE_NOT_MET_EXCEPTION;
       return `Your Bid of ${newDetails.currentBid} Accepted for item: ${newDetails.auctionItemId}`;
-    } else throw OUTBID_EXCEPTION;
+    } else {
+      const itemQuery = { _id: payload.auctionItemId };
+      const auctionItem = await this.auctionItemModel.findOne(itemQuery).exec();
+      if (auctionItem === null) {
+        throw ITEM_NOT_FOUND_EXCEPTION;
+      } else if (auctionItem.currentBid > payload.maxAutoBidAmount) {
+        throw OUTBID_EXCEPTION;
+      } else throw BID_INCREMENT_NOT_MET_EXCEPTION;
+    }
   }
 }
