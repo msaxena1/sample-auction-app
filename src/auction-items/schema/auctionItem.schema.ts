@@ -19,7 +19,7 @@ export class AuctionItem {
   @Prop()
   currentBid: number;
 
-  @Prop({ type: Number, required: false })
+  @Prop({ type: String, required: false })
   bidderName: string;
 
   @Prop()
