@@ -17,6 +17,12 @@ export class AuctionItem {
   reservePrice: number;
 
   @Prop()
+  currentBid: number;
+
+  @Prop({ type: Number, required: false })
+  bidderName: string;
+
+  @Prop()
   item: Item;
 }
 

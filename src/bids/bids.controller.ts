@@ -23,7 +23,7 @@ export class BidsController {
     description: 'Bid placed!!',
     type: String,
   })
-  create(@Body() createBidDto: CreateBidDto) {
+  async create(@Body() createBidDto: CreateBidDto): Promise<any> {
     return this.bidsService.create(createBidDto);
   }
 }

@@ -11,9 +11,9 @@ export class AuctionItemsService {
   ) {}
 
   async create(createAuctionItemDto: CreateAuctionItemDto): Promise<any> {
-    console.log(createAuctionItemDto);
-    const createdAuctionItem =
-      await this.auctionItemModel.create(createAuctionItemDto);
+    const auctionItem: any = { ...createAuctionItemDto };
+    auctionItem.currentBid = 0.0;
+    const createdAuctionItem = await this.auctionItemModel.create(auctionItem);
     const ret = {
       auctionItemId: createdAuctionItem._id,
     };
@@ -21,36 +21,23 @@ export class AuctionItemsService {
     return Promise.resolve(ret);
   }
 
-  async findAll(): Promise<any[]> {
-    const res = [
-      {
-        auctionItemId: '1234',
-        currentBid: 0.0,
-        reservePrice: 10450.0,
-        item: {
-          itemId: 'abcd',
-          description: 'item description',
-        },
-      },
-    ];
+  mapAuctionItem(record: any): any {
+    return {
+      auctionItemId: record._id,
+      currentBid: record.currentBid,
+      reservePrice: record.reservePrice,
+      item: record.item,
+      bidderName: record.bidderName,
+    };
+  }
 
-    const auctionItems = await this.auctionItemModel.find().exec();
-    return auctionItems;
+  async findAll(): Promise<any[]> {
+    const auctionItems: Array<any> = await this.auctionItemModel.find().exec();
+    return auctionItems.map((item) => this.mapAuctionItem(item));
   }
 
   async findOne(id: string): Promise<any> {
-    /*
-    return {
-      auctionItemId: id,
-      currentBid: 0.0,
-      reservePrice: 10450.0,
-      item: {
-        itemId: 'abcd',
-        description: 'item description',
-      },
-    };
-    */
     const auctionItem = await this.auctionItemModel.findOne({ _id: id }).exec();
-    return auctionItem;
+    return this.mapAuctionItem(auctionItem);
   }
 }

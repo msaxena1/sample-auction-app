@@ -1,25 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
 import { CreateBidDto } from './dto/create-bid.dto';
+import { AuctionItemsService } from '../auction-items/auction-items.service';
 
 @Injectable()
-export class BidsService {
-  create(createBidDto: CreateBidDto) {
-    return 'This action adds a new bid';
+export class BidsService implements OnModuleInit {
+  private auctionItemService: AuctionItemsService;
+  constructor(private moduleRef: ModuleRef) {}
+
+  onModuleInit() {
+    this.auctionItemService = this.moduleRef.get(AuctionItemsService, {
+      strict: false,
+    });
   }
 
-  findAll() {
-    return `This action returns all bids`;
+  async create(createBidDto: CreateBidDto) {
+    // TBD: Add Logging !!!
+    const res = await this.auctionItemService.findAll();
+    return res;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bid`;
-  }
-
-  update(id: number, updateBidDto: CreateBidDto) {
-    return `This action updates a #${id} bid`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} bid`;
-  }
 }

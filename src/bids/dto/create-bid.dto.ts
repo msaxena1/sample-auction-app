@@ -7,8 +7,9 @@ import {
 } from 'class-validator';
 
 export class CreateBidDto {
-  @IsNumber()
-  auctionItemId: number;
+  @IsString()
+  @MinLength(1)
+  auctionItemId: string;
 
   @IsDecimal()
   maxAutoBidAmount: number;
