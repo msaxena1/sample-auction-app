@@ -15,8 +15,6 @@ export class BidsService implements OnModuleInit {
   }
 
   async create(createBidDto: CreateBidDto) {
-    // TBD: Add Logging !!!
-
     const res = await this.auctionItemService.updateBid(createBidDto);
     return res;
   }
