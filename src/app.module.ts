@@ -16,7 +16,7 @@ if (process.env.CONFIG_FOLDER) {
   configFoler = process.env.CONFIG_FOLDER;
 }
 console.log(`Config folder location to use ${configFoler}`);
-console.log(`DB Connection to use ${dbConnection}`);
+console.log(`DB Connection (AUCTION_DB) to use ${dbConnection}`);
 
 @Module({
   imports: [
