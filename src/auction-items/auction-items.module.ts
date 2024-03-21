@@ -12,5 +12,6 @@ import { AuctionItem, AuctionItemSchema } from './schema/auctionItem.schema';
   ],
   controllers: [AuctionItemsController],
   providers: [AuctionItemsService],
+  exports: [AuctionItemsService],
 })
 export class AuctionItemsModule {}

@@ -98,12 +98,10 @@ describe('AuctionItemsService', () => {
     };
 
     jest.spyOn(model, 'findOneAndUpdate').mockReturnValue({
-      exec: jest
-        .fn()
-        .mockResolvedValueOnce({
-          ...mockAuctionItemDb,
-          currentBid: payload.maxAutoBidAmount,
-        }),
+      exec: jest.fn().mockResolvedValueOnce({
+        ...mockAuctionItemDb,
+        currentBid: payload.maxAutoBidAmount,
+      }),
     } as any);
 
     const item = await service.updateBid(payload);
@@ -120,12 +118,10 @@ describe('AuctionItemsService', () => {
     };
 
     jest.spyOn(model, 'findOneAndUpdate').mockReturnValue({
-      exec: jest
-        .fn()
-        .mockResolvedValueOnce({
-          ...mockAuctionItemDb,
-          currentBid: payload.maxAutoBidAmount,
-        }),
+      exec: jest.fn().mockResolvedValueOnce({
+        ...mockAuctionItemDb,
+        currentBid: payload.maxAutoBidAmount,
+      }),
     } as any);
 
     try {
@@ -143,12 +139,10 @@ describe('AuctionItemsService', () => {
     };
 
     jest.spyOn(model, 'findOneAndUpdate').mockReturnValue({
-      exec: jest
-        .fn()
-        .mockResolvedValueOnce({
-          ...mockAuctionItemDb,
-          currentBid: payload.maxAutoBidAmount + 2,
-        }),
+      exec: jest.fn().mockResolvedValueOnce({
+        ...mockAuctionItemDb,
+        currentBid: payload.maxAutoBidAmount + 2,
+      }),
     } as any);
 
     try {
