@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  sample-auction-app:
+    image: msaxena2024/sample-auction-app:0.0.1
+    environment:
+      - AUCTION_DB=mongodb://172.17.1.164:27017/auction
+    ports:
+      - 80:3000

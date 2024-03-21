@@ -37,6 +37,8 @@ $ npm install
 ## Running the app
 
 ```bash
+# env
+$ export AUCTION_DB=mongodb://172.17.1.164:27017/auction
 # development
 $ npm run start
 
@@ -58,6 +60,14 @@ $ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
+```
+
+## Docker instance
+
+```bash
+# 
+$ cd deploy/docker
+$ docker compose up
 ```
 
 ## Support
